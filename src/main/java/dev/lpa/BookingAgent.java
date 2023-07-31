@@ -70,6 +70,61 @@ public class BookingAgent {
         bookSeat(rodgerNYC, 'M', 1);
 //        --> No such seat: M001: Seat must be between A001 and J010
 //        Sorry! Unable to reserve M1
+
+        bookSeats(rodgerNYC, 4, 'B', 3, 10);
+//        Congratulations! Your reserved seats are [B003, B004, B005, B006]
+//        ------------------------------------------------------------------------------------------
+//        Richard Rodgers Seat Map
+//        ------------------------------------------------------------------------------------------
+//        A001    A002    A003(●) A004    A005    A006    A007    A008    A009    A010
+//        B001(●) B002    B003(●) B004(●) B005(●) B006(●) B007    B008    B009    B010
+//        C001    C002    C003    C004    C005    C006    C007    C008    C009    C010
+//        D001    D002    D003    D004    D005    D006    D007    D008    D009    D010
+//        E001    E002    E003    E004    E005    E006    E007    E008    E009    E010
+//        F001    F002    F003    F004    F005    F006    F007    F008    F009    F010
+//        G001    G002    G003    G004    G005    G006    G007    G008    G009    G010
+//        H001    H002    H003    H004    H005    H006    H007    H008    H009    H010
+//        I001    I002    I003    I004    I005    I006    I007    I008    I009    I010
+//        J001    J002    J003    J004    J005    J006    J007    J008    J009    J010
+//        ------------------------------------------------------------------------------------------
+
+        bookSeats(rodgerNYC, 6, 'B', 'C', 3, 10);
+//        ------------------------------------------------------------------------------------------
+//        Congratulations! Your reserved seats are [C003, C004, C005, C006, C007, C008]
+//        ------------------------------------------------------------------------------------------
+//        Richard Rodgers Seat Map
+//        ------------------------------------------------------------------------------------------
+//        A001    A002    A003(●) A004    A005    A006    A007    A008    A009    A010
+//        B001(●) B002    B003(●) B004(●) B005(●) B006(●) B007    B008    B009    B010
+//        C001    C002    C003(●) C004(●) C005(●) C006(●) C007(●) C008(●) C009    C010
+//        D001    D002    D003    D004    D005    D006    D007    D008    D009    D010
+//        E001    E002    E003    E004    E005    E006    E007    E008    E009    E010
+//        F001    F002    F003    F004    F005    F006    F007    F008    F009    F010
+//        G001    G002    G003    G004    G005    G006    G007    G008    G009    G010
+//        H001    H002    H003    H004    H005    H006    H007    H008    H009    H010
+//        I001    I002    I003    I004    I005    I006    I007    I008    I009    I010
+//        J001    J002    J003    J004    J005    J006    J007    J008    J009    J010
+//        ------------------------------------------------------------------------------------------
+
+
+        bookSeats(rodgerNYC, 4, 'B', 1, 10);
+//        ------------------------------------------------------------------------------------------
+//        Congratulations! Your reserved seats are [B007, B008, B009, B010]
+//        ------------------------------------------------------------------------------------------
+//        Richard Rodgers Seat Map
+//        ------------------------------------------------------------------------------------------
+//        A001    A002    A003(●) A004    A005    A006    A007    A008    A009    A010
+//        B001(●) B002    B003(●) B004(●) B005(●) B006(●) B007(●) B008(●) B009(●) B010(●)
+//        C001    C002    C003(●) C004(●) C005(●) C006(●) C007(●) C008(●) C009    C010
+//        D001    D002    D003    D004    D005    D006    D007    D008    D009    D010
+//        E001    E002    E003    E004    E005    E006    E007    E008    E009    E010
+//        F001    F002    F003    F004    F005    F006    F007    F008    F009    F010
+//        G001    G002    G003    G004    G005    G006    G007    G008    G009    G010
+//        H001    H002    H003    H004    H005    H006    H007    H008    H009    H010
+//        I001    I002    I003    I004    I005    I006    I007    I008    I009    I010
+//        J001    J002    J003    J004    J005    J006    J007    J008    J009    J010
+//        ------------------------------------------------------------------------------------------
+
     }
 
     private static void bookSeat(Theatre theatre, char row, int seatNo) {
@@ -80,6 +135,20 @@ public class BookingAgent {
             theatre.printSeatMap();
         } else {
             System.out.println("Sorry! Unable to reserve " +  row + seatNo);
+        }
+    }
+
+    private static void bookSeats(Theatre theatre, int tickets, char minRow, int minSeat, int maxSeat) {
+        bookSeats(theatre, tickets, minRow, minRow, minSeat, maxSeat);
+    }
+    private static void bookSeats(Theatre theatre, int tickets, char minRow, char maxRow, int minSeat, int maxSeat) {
+
+        var seats = theatre.reserveSeats(tickets, minRow, maxRow, minSeat, maxSeat);
+        if (seats != null) {
+            System.out.println("Congratulations! Your reserved seats are " + seats);
+            theatre.printSeatMap();
+        } else {
+            System.out.println("Sorry! No matching contiguous seats in rows: " + minRow + " - " + maxRow);
         }
     }
 }
